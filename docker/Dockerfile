@@ -45,12 +45,12 @@ WORKDIR /var/www/html
 # Instalar Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
+RUN composer install
+
 # Ajustar permisos para los directorios necesarios
 RUN chown -R www-data:www-data /var/www/html \
     && chmod 775 -R /var/www/html \
     && chmod -R 777 /var/www/html/storage \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
-RUN composer install
 
 EXPOSE 80
