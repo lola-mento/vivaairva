@@ -51,4 +51,6 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 777 /var/www/html/storage \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
+RUN composer install
+
 EXPOSE 80
