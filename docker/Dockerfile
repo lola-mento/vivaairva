@@ -52,5 +52,11 @@ RUN chown -R www-data:www-data /var/www/html \
 # Exponer el puerto 80 para Apache
 EXPOSE 80
 
+RUN composer install
+
+RUN npm install
+
+RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
+
 # Cambiar el usuario a www-data (usuario de Apache)
 USER www-data
