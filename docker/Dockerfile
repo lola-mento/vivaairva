@@ -49,12 +49,4 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 777 /var/www/html/storage \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Crear directorio de caché de npm
-RUN mkdir -p /var/www/.npm && chown -R www-data:www-data /var/www/.npm
-
-RUN composer install --no-interaction --prefer-dist
-
-RUN npm install
-
-# Exponer el puerto 80 para Apache
 EXPOSE 80
