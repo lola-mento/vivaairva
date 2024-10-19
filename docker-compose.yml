@@ -1,0 +1,20 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: vivaairva-app
+    ports:
+      - 8080:80
+    volumes:
+        - .:/var/www/html
+    environment:
+      - APACHE_DOCUMENT_ROOT=/var/www/html/public
+    networks:
+      - titacticos_net
+          
+networks:
+  titacticos_net:
+   external: true
