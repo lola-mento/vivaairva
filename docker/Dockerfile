@@ -21,6 +21,7 @@ RUN a2enmod ssl
 
 # Copiar archivo de configuración de Apache
 COPY ./docker/apache/apache-config.conf /etc/apache2/sites-available/vivaairva.conf
+COPY ./path/to/your/apache-configssl.conf /etc/apache2/sites-available/vivaairva-ssl.conf
 
 # Establecer el directorio raíz de Apache
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
@@ -53,6 +54,10 @@ RUN npm install
 RUN npm run build
 
 RUN a2ensite vivaairva.conf
+
+RUN apt-get update && \
+    apt-get install -y certbot python3-certbot-apache && \
+    apt-get clean
 
 # Ajustar permisos para los directorios necesarios
 RUN chown -R www-data:www-data /var/www/html \
