@@ -49,14 +49,14 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 777 /var/www/html/storage \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Exponer el puerto 80 para Apache
-EXPOSE 80
+# Cambiar el usuario a www-data (usuario de Apache)
+USER www-data
 
-RUN composer install
+RUN composer install --no-interaction --prefer-dist
 
 RUN npm install
 
 RUN chown -R www-data:www-data /var/www/storage /var/www/bootstrap/cache
 
-# Cambiar el usuario a www-data (usuario de Apache)
-USER www-data
+# Exponer el puerto 80 para Apache
+EXPOSE 80
