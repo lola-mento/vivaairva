@@ -47,6 +47,10 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 
 RUN composer install
 
+RUN npm install
+
+RUN npm run build
+
 # Ajustar permisos para los directorios necesarios
 RUN chown -R www-data:www-data /var/www/html \
     && chmod 775 -R /var/www/html \
