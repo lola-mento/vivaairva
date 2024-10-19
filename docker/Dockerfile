@@ -43,14 +43,14 @@ WORKDIR /var/www/html
 # Instalar Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# Cambiar el usuario a www-data (usuario de Apache)
-USER www-data
-
 # Ajustar permisos para los directorios necesarios
 RUN chown -R www-data:www-data /var/www/html \
     && chmod 775 -R /var/www/html \
     && chmod -R 777 /var/www/html/storage \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+
+# Cambiar el usuario a www-data (usuario de Apache)
+USER www-data
 
 RUN composer install --no-interaction --prefer-dist
 
