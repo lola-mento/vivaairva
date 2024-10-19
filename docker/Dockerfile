@@ -54,6 +54,3 @@ EXPOSE 80
 
 # Cambiar el usuario a www-data (usuario de Apache)
 USER www-data
-
-# Ejecutar migraciones al iniciar el contenedor
-CMD php artisan migrate --force && /usr/sbin/apachectl -D FOREGROUND
