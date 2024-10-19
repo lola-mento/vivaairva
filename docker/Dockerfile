@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
 RUN a2enmod rewrite
 
 # Copiar archivo de configuración de Apache
-COPY ./docker/apache/apache-config.conf /etc/apache2/sites-available/000-default.conf
+COPY ./docker/apache/apache-config.conf /etc/apache2/sites-available/vivaairva.conf
 
 # Establecer el directorio raíz de Apache
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
@@ -50,6 +50,8 @@ RUN composer install
 RUN npm install
 
 RUN npm run build
+
+RUN a2ensite vivaairva.conf
 
 # Ajustar permisos para los directorios necesarios
 RUN chown -R www-data:www-data /var/www/html \
