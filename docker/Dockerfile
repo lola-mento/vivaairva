@@ -37,6 +37,8 @@ USER root
 # Copiar todo el contenido del proyecto en el contenedor
 COPY . /var/www/html
 
+RUN cp .env.example .env
+
 # Configurar entorno de trabajo en el directorio del proyecto
 WORKDIR /var/www/html
 
