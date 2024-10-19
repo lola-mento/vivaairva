@@ -21,7 +21,7 @@ RUN a2enmod ssl
 
 # Copiar archivo de configuración de Apache
 COPY ./docker/apache/apache-config.conf /etc/apache2/sites-available/vivaairva.conf
-COPY ./path/to/your/apache-configssl.conf /etc/apache2/sites-available/vivaairva-ssl.conf
+COPY ./docker/apache/apache-configssl.conf /etc/apache2/sites-available/vivaairva-ssl.conf
 
 # Establecer el directorio raíz de Apache
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
