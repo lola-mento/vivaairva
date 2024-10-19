@@ -52,9 +52,6 @@ RUN chown -R www-data:www-data /var/www/html \
 # Crear directorio de caché de npm
 RUN mkdir -p /var/www/.npm && chown -R www-data:www-data /var/www/.npm
 
-# Cambiar el usuario a www-data (usuario de Apache)
-USER www-data
-
 RUN composer install --no-interaction --prefer-dist
 
 RUN npm install
