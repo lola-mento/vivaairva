@@ -54,8 +54,6 @@ RUN npm run build
 
 RUN a2ensite vivaairva.conf
 
-RUN certbot certonly --non-interactive --agree-tos --email andresleon90s@gmail.com -d vivaairva.com -d www.vivaairva.com --webroot -w ${APACHE_DOCUMENT_ROOT}
-
 # Ajustar permisos para los directorios necesarios
 RUN chown -R www-data:www-data /var/www/html \
     && chmod 775 -R /var/www/html \
