@@ -45,7 +45,8 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 777 /var/www/html/storage \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Exponer el puerto 80
-EXPOSE 80
+# Expone el puerto 9000 para PHP-FPM
+EXPOSE 9000
 
-#CMD ["php-fpm"]
+# Ejecuta PHP-FPM
+CMD ["php-fpm"]
