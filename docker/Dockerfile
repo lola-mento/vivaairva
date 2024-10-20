@@ -10,8 +10,6 @@ RUN apt-get update && apt-get install -y \
     libcurl4-openssl-dev \
     unzip \
     libxml2-dev \
-    nodejs \
-    npm \
     git \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
@@ -45,7 +43,7 @@ RUN chown -R www-data:www-data /var/www/html \
     && chmod -R 777 /var/www/html/storage \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
-# Expone el puerto 9000 para PHP-FPM
+# Exponer el puerto 9000 para PHP-FPM (comunicación entre Nginx y PHP-FPM)
 EXPOSE 9000
 
 # Ejecuta PHP-FPM

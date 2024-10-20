@@ -7,7 +7,6 @@ services:
     container_name: vivaairva-app
     labels:
       - "traefik.http.routers.vivaapp.rule=Host(`vivaairva.com`)"
-      - "traefik.http.services.laravel.loadbalancer.server.port=9000"
     networks:
       - titacticos_net
     expose:
