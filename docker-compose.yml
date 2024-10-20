@@ -6,14 +6,17 @@ services:
       context: .
       dockerfile: docker/Dockerfile
     container_name: vivaairva-app
-    ports:
-      - "80:80"
-      - "443:443"
-    environment:
-      - APACHE_DOCUMENT_ROOT=/var/www/html/public
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app.rule=Host(`www.vivaairva.com`)" # Cambia por tu dominio
+      - "traefik.http.routers.app.entrypoints=web"
+      - "traefik.http.services.app.loadbalancer.server.port=9000" # Redirigir al puerto 9000 de php-fpm
+      - "traefik.http.routers.app-secure.rule=Host(`www.vivaairva.com`)"
+      - "traefik.http.routers.app-secure.entrypoints=websecure"
+      - "traefik.http.routers.app-secure.tls.certresolver=myresolver"
     networks:
       - titacticos_net
-          
+
 networks:
   titacticos_net:
    external: true
