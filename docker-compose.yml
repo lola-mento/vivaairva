@@ -28,15 +28,15 @@ services:
         networks:
           - titacticos_net       
 
-        php-fpm:
-            build: docker/php-fpm
-            container_name: vivaairvaa-app
-            working_dir: /application
-            volumes:
-                - '.:/application'
-                - './docker/php-fpm/php-ini-overrides.ini:/etc/php/8.0/fpm/conf.d/99-overrides.ini'
-            networks:
-              - titacticos_net
+  php-fpm:
+      build: docker/php-fpm
+      container_name: vivaairvaa-app
+      working_dir: /application
+      volumes:
+          - '.:/application'
+          - './docker/php-fpm/php-ini-overrides.ini:/etc/php/8.0/fpm/conf.d/99-overrides.ini'
+      networks:
+        - titacticos_net
 networks:
   titacticos_net:
    external: true
