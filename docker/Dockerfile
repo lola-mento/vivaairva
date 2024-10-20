@@ -17,11 +17,9 @@ RUN apt-get update && apt-get install -y \
 
 # Habilitar mod_rewrite de Apache
 RUN a2enmod rewrite
-RUN a2enmod ssl
 
 # Copiar archivo de configuración de Apache
 COPY ./docker/apache/apache-config.conf /etc/apache2/sites-available/vivaairva.conf
-COPY ./docker/apache/apache-configssl.conf /etc/apache2/sites-available/vivaairva-ssl.conf
 
 # Establecer el directorio raíz de Apache
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public
@@ -55,10 +53,6 @@ RUN npm run build
 
 RUN a2ensite vivaairva.conf
 
-RUN apt-get update && \
-    apt-get install -y certbot python3-certbot-apache && \
-    apt-get clean
-
 # Ajustar permisos para los directorios necesarios
 RUN chown -R www-data:www-data /var/www/html \
     && chmod 775 -R /var/www/html \
@@ -66,4 +60,3 @@ RUN chown -R www-data:www-data /var/www/html \
     && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
 
 EXPOSE 80
-EXPOSE 443
