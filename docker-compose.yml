@@ -1,19 +1,12 @@
 version: '3.8'
-
 services:
-  app:
+  vivaapp:
     build:
       context: .
       dockerfile: docker/Dockerfile
     container_name: vivaairva-app
     labels:
-      - "traefik.enable=true"
-      - "traefik.http.routers.app.rule=Host(`www.vivaairva.com`)" # Cambia por tu dominio
-      - "traefik.http.routers.app.entrypoints=web"
-      - "traefik.http.services.app.loadbalancer.server.port=9000" # Redirigir al puerto 9000 de php-fpm
-      - "traefik.http.routers.app-secure.rule=Host(`www.vivaairva.com`)"
-      - "traefik.http.routers.app-secure.entrypoints=websecure"
-      - "traefik.http.routers.app-secure.tls.certresolver=myresolver"
+      - "traefik.http.routers.vivaapp.rule=Host(`vivaairva.com`)"
     networks:
       - titacticos_net
 
