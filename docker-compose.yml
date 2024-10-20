@@ -1,13 +1,16 @@
 version: '3.8'
 services:
-  vivaapp:
+
+  app:
     build:
       context: .
       dockerfile: docker/Dockerfile
     container_name: vivaairva-app
     networks:
       - titacticos_net
-  vivaairva-app:
+
+
+  servicio:
         image: 'nginx:alpine'
         container_name: vivaairva-webserver        
         working_dir: /application
@@ -20,13 +23,14 @@ services:
           # Explicitly tell Traefik to expose this container
           - "traefik.enable=true"
           # The domain the service will respond to
-          - "traefik.http.services.vivaairva-app.loadbalancer.server.port=80"
-          - "traefik.http.routers.vivaairva-app.rule=Host(`vivaairva.com`)"
-          - "traefik.http.routers.vivaairva-app.entrypoints=websecure"
-          - "traefik.http.routers.vivaairva-app.tls.certresolver=myresolver"
-          - "traefik.http.routers.vivaairva-app.tls=true"
+          - "traefik.http.services.servicio.loadbalancer.server.port=80"
+          - "traefik.http.routers.servicio.rule=Host(`vivaairva.com`)"
+          - "traefik.http.routers.servicio.entrypoints=websecure"
+          - "traefik.http.routers.servicio.tls.certresolver=myresolver"
+          - "traefik.http.routers.servicio.tls=true"
         networks:
           - titacticos_net
+          
 networks:
   titacticos_net:
    external: true
