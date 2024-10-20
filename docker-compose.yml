@@ -5,13 +5,38 @@ services:
       context: .
       dockerfile: docker/Dockerfile
     container_name: vivaairva-app
-    labels:
-      - "traefik.http.routers.vivaapp.rule=Host(`vivaairva.com`)"
     networks:
       - titacticos_net
-    expose:
-      - "9000"
+  vivaairva-app:
+        image: 'nginx:alpine'
+        container_name: vivaairva-webserver        
+        working_dir: /application
+        volumes:
+            - '.:/application'
+            - './docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf'
+        ports:
+            - '8014:8000'
+        labels:
+          # Explicitly tell Traefik to expose this container
+          - "traefik.enable=true"
+          # The domain the service will respond to
+          - "traefik.http.services.vivaairva-app.loadbalancer.server.port=80"
+          - "traefik.http.routers.vivaairva-app.rule=Host(`vivaairva.com`)"
+          - "traefik.http.routers.vivaairva-app.entrypoints=websecure"
+          - "traefik.http.routers.vivaairva-app.tls.certresolver=myresolver"
+          - "traefik.http.routers.vivaairva-app.tls=true"
+        networks:
+          - titacticos_net       
 
+        php-fpm:
+            build: docker/php-fpm
+            container_name: vivaairvaa-app
+            working_dir: /application
+            volumes:
+                - '.:/application'
+                - './docker/php-fpm/php-ini-overrides.ini:/etc/php/8.0/fpm/conf.d/99-overrides.ini'
+            networks:
+              - titacticos_net
 networks:
   titacticos_net:
    external: true
