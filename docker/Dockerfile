@@ -33,9 +33,9 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN composer install
 
 # Instalar dependencias de Node.js y construir assets
-RUN npm install
+#RUN npm install
 
-RUN npm run build
+#RUN npm run build
 
 # Ajustar permisos para los directorios necesarios
 RUN chown -R www-data:www-data /var/www/html \
