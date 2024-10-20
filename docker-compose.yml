@@ -1,0 +1,39 @@
+###############################################################################
+#                          Generated on phpdocker.io                          #
+###############################################################################
+version: '3.1'
+services:
+
+    viva-app:
+        image: 'nginx:alpine'
+        container_name: viva-webserver        
+        working_dir: /application
+        volumes:
+            - '.:/application'
+            - './docker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf'
+        ports:
+            - '8090:8000'
+        labels:
+          # Explicitly tell Traefik to expose this container
+          - "traefik.enable=true"
+          # The domain the service will respond to
+          - "traefik.http.services.viva-app.loadbalancer.server.port=80"
+          - "traefik.http.routers.viva-app.rule=Host(`vivaairva.com`)"
+          - "traefik.http.routers.viva-app.entrypoints=websecure"
+          - "traefik.http.routers.viva-app.tls.certresolver=myresolver"
+          - "traefik.http.routers.viva-app.tls=true"
+        networks:
+          - traefik_proxy_net        
+
+    php-fpm:
+        build: docker/php-fpm
+        container_name: viva-app
+        working_dir: /application
+        volumes:
+            - '.:/application'
+            - './docker/php-fpm/php-ini-overrides.ini:/etc/php/8.2/fpm/conf.d/99-overrides.ini'
+        networks:
+          - traefik_proxy_net
+networks:
+  traefik_proxy_net:
+    external: true
