@@ -14,9 +14,7 @@ services:
         ports:
             - '8090:80'
         labels:
-          # Explicitly tell Traefik to expose this container
           - "traefik.enable=true"
-          # The domain the service will respond to
           - "traefik.http.services.viva-app.loadbalancer.server.port=80"
           - "traefik.http.routers.viva-app.rule=Host(`vivaairva.com`)"
           - "traefik.http.routers.viva-app.entrypoints=websecure"
