@@ -24,7 +24,7 @@ RUN docker-php-ext-install pdo_mysql zip curl xml
 # Copiar todo el contenido del proyecto en el contenedor
 COPY . /var/www/html
 
-#RUN cp .env.example .env
+RUN cp .env.example .env
 
 # Configurar entorno de trabajo en el directorio del proyecto
 WORKDIR /var/www/html
