@@ -59,4 +59,4 @@ RUN service apache2 restart
 EXPOSE 80
 
 # Iniciar Apache en el contenedor
-CMD ["apache2-foreground"]
+#CMD ["apache2-foreground"]
