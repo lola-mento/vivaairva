@@ -10,8 +10,8 @@ services:
       - "traefik.http.routers.apache.tls.certresolver=myresolver"
     #volumes: 
       #- ./php/:/var/www/html
-  networks: 
-    traefik_network:
+    networks: 
+      traefik_network:
 networks: 
   traefik_network:
     name: traefik_net
