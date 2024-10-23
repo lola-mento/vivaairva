@@ -12,11 +12,9 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     git \
     curl \
+    nodejs \
+    npm \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
-
-# Instalar Node.js y npm
-#RUN curl -sL https://deb.nodesource.com/setup_18.x | bash - && \
-    #apt-get install -y nodejs
 
 # Instalar extensiones de PHP necesarias
 RUN docker-php-ext-install pdo_mysql zip curl xml
@@ -35,8 +33,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN composer install
 
 # Instalar dependencias de Node.js y construir assets
-#RUN npm install
-#RUN npm run build
+RUN npm install
+RUN npm run build
 
 USER root
 
