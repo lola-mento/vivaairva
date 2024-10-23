@@ -18,3 +18,4 @@ networks:
     driver: bridge
     ipam: 
       driver: default
+    external: true
