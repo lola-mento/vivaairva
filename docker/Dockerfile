@@ -50,13 +50,13 @@ RUN chown -R www-data:www-data /var/www/html \
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
 
 # Habilitar mod_rewrite para Laravel
-#RUN a2enmod rewrite
+RUN a2enmod rewrite
 
 # Reiniciar Apache después de los cambios
-#RUN service apache2 restart
+RUN service apache2 restart
 
 # Exponer el puerto para Apache
-#EXPOSE 80
+EXPOSE 80
 
 # Iniciar Apache en el contenedor
-#CMD ["apache2-foreground"]
+CMD ["apache2-foreground"]
