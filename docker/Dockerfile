@@ -57,7 +57,7 @@ RUN service apache2 restart
 RUN npm run build
 
 # Exponer el puerto para Apache
-EXPOSE 80
+#EXPOSE 80
 
 # Iniciar Apache en el contenedor
 #CMD ["apache2-foreground"]
