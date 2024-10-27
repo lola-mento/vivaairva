@@ -14,7 +14,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-    
+
 RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
 apt-get install -y nodejs
 
@@ -35,8 +35,7 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN composer install
 
 # Instalar dependencias de Node.js y construir assets
-#RUN npm install
-#RUN npm run build
+RUN npm install
 
 USER root
 
@@ -54,6 +53,8 @@ RUN a2enmod rewrite
 
 # Reiniciar Apache después de los cambios
 RUN service apache2 restart
+
+RUN npm run build
 
 # Exponer el puerto para Apache
 EXPOSE 80
