@@ -12,9 +12,11 @@ RUN apt-get update && apt-get install -y \
     libxml2-dev \
     git \
     curl \
-    nodejs \
-    npm \
     && apt-get clean && rm -rf /var/lib/apt/lists/*
+
+    
+RUN curl -fsSL https://deb.nodesource.com/setup_18.x | bash - && \
+apt-get install -y nodejs
 
 # Instalar extensiones de PHP necesarias
 RUN docker-php-ext-install pdo_mysql zip curl xml
