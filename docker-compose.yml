@@ -6,8 +6,8 @@ services:
       dockerfile: docker/Dockerfile
     labels: 
       - "traefik.http.routers.apache.rule=Host(`vivaairva.com`)"
-      #- "traefik.http.routers.apache.entrypoints=websecurity"
-      #- "traefik.http.routers.apache.tls.certresolver=myresolver"
+      - "traefik.http.routers.apache.entrypoints=websecurity"
+      - "traefik.http.routers.apache.tls.certresolver=myresolver"
     #volumes: 
       #- ./php/:/var/www/html
     networks: 
