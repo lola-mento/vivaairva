@@ -33,8 +33,8 @@ RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local
 RUN composer install
 
 # Instalar dependencias de Node.js y construir assets
-RUN npm install
-RUN npm run build
+#RUN npm install
+#RUN npm run build
 
 USER root
 
