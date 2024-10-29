@@ -54,6 +54,8 @@ RUN a2enmod rewrite
 # Reiniciar Apache después de los cambios
 RUN service apache2 restart
 
+RUN npm install -D @vitejs/plugin-basic-ssl
+
 RUN npm run build
 
 # Exponer el puerto para Apache
