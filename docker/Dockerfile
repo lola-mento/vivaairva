@@ -37,7 +37,7 @@ RUN composer install
 # Instalar dependencias de Node.js y construir assets
 RUN npm install
 
-RUN mkcert install
+RUN apt install mkcert
 
 RUN mkdir -p .cert && mkcert -key-file ./.cert/key.pem -cert-file ./.cert/cert.pem 'vivaariva'
 
