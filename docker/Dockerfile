@@ -37,6 +37,10 @@ RUN composer install
 # Instalar dependencias de Node.js y construir assets
 RUN npm install
 
+RUN mkcert install
+
+RUN mkdir -p .cert && mkcert -key-file ./.cert/key.pem -cert-file ./.cert/cert.pem 'vivaariva'
+
 USER root
 
 # Ajustar permisos para los directorios necesarios
@@ -53,8 +57,6 @@ RUN a2enmod rewrite
 
 # Reiniciar Apache después de los cambios
 RUN service apache2 restart
-
-RUN npm install -D @vitejs/plugin-basic-ssl
 
 RUN npm run build
 
