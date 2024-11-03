@@ -37,10 +37,6 @@ RUN composer install
 # Instalar dependencias de Node.js y construir assets
 RUN npm install
 
-RUN apt install mkcert
-
-RUN mkdir -p .cert && mkcert -key-file ./.cert/key.pem -cert-file ./.cert/cert.pem 'vivaariva'
-
 USER root
 
 # Ajustar permisos para los directorios necesarios
@@ -51,6 +47,8 @@ RUN chown -R www-data:www-data /var/www/html \
 
 # Configurar el VirtualHost de Apache para que apunte al directorio public
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
+
+RUN php artisan key:generate
 
 # Habilitar mod_rewrite para Laravel
 RUN a2enmod rewrite
