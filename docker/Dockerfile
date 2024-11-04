@@ -24,31 +24,14 @@ RUN docker-php-ext-install pdo_mysql zip curl xml
 # Copiar todo el contenido del proyecto en el contenedor
 COPY . /var/www/html
 
-RUN cp .env.example .env
-
 # Configurar entorno de trabajo en el directorio del proyecto
 WORKDIR /var/www/html
 
 # Instalar Composer
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-RUN composer install
-
-# Instalar dependencias de Node.js y construir assets
-RUN npm install
-
-USER root
-
-# Ajustar permisos para los directorios necesarios
-RUN chown -R www-data:www-data /var/www/html \
-    && chmod 775 -R /var/www/html \
-    && chmod -R 777 /var/www/html/storage \
-    && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
-
 # Configurar el VirtualHost de Apache para que apunte al directorio public
 RUN sed -i 's|/var/www/html|/var/www/html/public|g' /etc/apache2/sites-available/000-default.conf
-
-RUN php artisan key:generate
 
 # Habilitar mod_rewrite para Laravel
 RUN a2enmod rewrite
@@ -56,10 +39,11 @@ RUN a2enmod rewrite
 # Reiniciar Apache después de los cambios
 RUN service apache2 restart
 
-RUN npm run build
-
-# Exponer el puerto para Apache
-#EXPOSE 80
-
-# Iniciar Apache en el contenedor
-#CMD ["apache2-foreground"]
+#Estos comandos se deben agregar dentro del contenedor(La primera vez que se suba el Docker):
+#composer install
+#npm install
+#chown -R www-data:www-data /var/www/html \ && chmod 775 -R /var/www/html \ && chmod -R 777 /var/www/html/storage \ && chown -R www-data:www-data /var/www/html/storage /var/www/html/bootstrap/cache
+#cp .env.example .env
+#php artisan key:generate
+#php artisan migrate
+#npm run build

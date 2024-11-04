@@ -9,8 +9,8 @@ services:
       - "traefik.http.routers.viva.tls=true"
       - "traefik.http.routers.viva.entrypoints=websecure"
       - "traefik.http.routers.viva.tls.certresolver=myresolver"
-    #volumes: 
-      #- ./php/:/var/www/html
+    volumes: 
+      - .:/var/www/html
     networks: 
       traefik_network:
 networks: 
